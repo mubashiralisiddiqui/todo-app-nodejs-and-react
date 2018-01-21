@@ -21,9 +21,9 @@ class Footer extends React.Component {
                 </div>
                 <div style={{ justifyContent: 'center', display: 'flex' }}>
                     <div className="btn-group" role="group">
-                    <Link to="/" className={this.props.active==="all" ? "btn btn-primary": "btn btn-default"}>All</Link>
-                    <Link to="/active" className={this.props.active==="active" ? "btn btn-primary": "btn btn-default"}>Active</Link>
-                    <Link to="/completed" className={this.props.active==="completed" ? "btn btn-primary": "btn btn-default"}>Completed</Link>
+                    <div to="/" className={this.props.active==="all" ? "btn btn-primary": "btn btn-default"}>All</div>
+                    <div to="/active" className={this.props.active==="active" ? "btn btn-primary": "btn btn-default"}>Active</div>
+                    <div to="/completed" className={this.props.active==="completed" ? "btn btn-primary": "btn btn-default"}>Completed</div>
                     </div>
 
                 </div>

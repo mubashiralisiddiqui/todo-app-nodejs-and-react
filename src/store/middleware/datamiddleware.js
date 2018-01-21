@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { handledata } from '../actions/handledata'
-
+const rooturl = 'https://todoappwithnodeandreact.herokuapp.com/api/'
 export const submitData = (data) => {
     console.log(data)
     return dispatch => {
         console.log(data)
-        axios.post('http://localhost:4000/api/add', { value: data })
+        axios.post(`${rooturl}/add`, { value: data })
             .then((res) => {
                 console.log("response", res)
-                axios.get('http://localhost:4000/api/')
+                axios.get(rooturl)
                     .then((res) => {
                         console.log("response of get req", res.data.data)
                         dispatch(handledata.getdata(res.data.data))
@@ -26,7 +26,7 @@ export const submitData = (data) => {
 }
 export const getdata = () => {
     return dispatch => {
-        axios.get('http://localhost:4000/api/')
+        axios.get(rooturl)
             .then((res) => {
                 console.log("response of get req", res.data.data)
                 dispatch(handledata.getdata(res.data.data))
@@ -40,10 +40,10 @@ export const getdata = () => {
 export const handleDelete = (id) => {
     console.log(id)
     return dispatch => {
-        axios.delete(`http://localhost:4000/api/delete/${id}`)
+        axios.delete(`${rooturl}/delete/${id}`)
             .then((res) => {
                 console.log("response of delete req", res)
-                axios.get('http://localhost:4000/api/')
+                axios.get(rooturl)
                     .then((res) => {
                         console.log("response of get req", res.data.data)
                         dispatch(handledata.getdata(res.data.data))
@@ -62,18 +62,17 @@ export const handleDelete = (id) => {
 export const checkItem = (id, data) => {
     console.log("cheked id and ischekd", id, data)
     return dispatch => {
-        axios.put(`http://localhost:4000/api/add/${id}`, { checked: data })
+        axios.put(`${rooturl}/add/${id}`, { checked: data })
             .then((res) => {
                 console.log("updated", res)
                 //update locally
-                axios.get('http://localhost:4000/api/')
+                axios.get(rooturl)
                     .then((res) => {
                         console.log("response of get req", res.data.data)
                         dispatch(handledata.getdata(res.data.data))
                     })
                     .catch((err) => {
                         console.log("error", err)
-
                     })
             })
             .catch((err) => {
@@ -85,22 +84,22 @@ export const checkItem = (id, data) => {
 export const updateItem = (id, data) => {
     console.log("id and data", data)
     return dispatch => {
-        axios.put(`http://localhost:4000/api/add/${id}`, { value: data })
+        axios.put(`${rooturl}/add/${id}`, { value: data })
             .then((res) => {
                 console.log("updated", res.data)
+                axios.get(rooturl)
+                // dispatch(handledata.load())
+                    .then((res) => {
+                        console.log("response of get req", res.data.data)
+                        dispatch(handledata.getdata(res.data.data))
+                    })
+                    .catch((err) => {
+                        console.log("error", err)
+        
+                    })
             })
             .catch((err) => {
                 console.log('error', err)
-            })
-        //update locally
-        axios.get('http://localhost:4000/api/')
-            .then((res) => {
-                console.log("response of get req", res.data.data)
-                dispatch(handledata.getdata(res.data.data))
-            })
-            .catch((err) => {
-                console.log("error", err)
-
             })
     }
 }
@@ -108,13 +107,13 @@ export const checkedAll = (data) => {
     return dispatch => {
         data.map((a, i) => {
             console.log('mapdat', a._id)
-            axios.put(`http://localhost:4000/api/add/${a._id}`, { checked: true })
+            axios.put(`${rooturl}/add/${a._id}`, { checked: true })
                 .then((res) => {
                     console.log("updated", res.data)
                 })
                 .catch((err) => {
                     console.log('error', err)
-                    axios.get('http://localhost:4000/api/')
+                    axios.get(rooturl)
                         .then((res) => {
                             console.log("response of get req", res.data.data)
                             dispatch(handledata.getdata(res.data.data))
@@ -134,10 +133,11 @@ export const deleteChecked = (data) => {
         console.log('deleted checked', data)
         data.map((a, i) => {
             if (a.checked == true) {
-                axios.delete(`http://localhost:4000/api/delete/${a._id}`)
+                axios.delete(`${rooturl}/delete/${a._id}`)
+
                     .then((res) => {
                         console.log("response of delete req", res)
-                        axios.get('http://localhost:4000/api/')
+                        axios.get(rooturl)
                             .then((res) => {
                                 console.log("response of get req", res.data.data)
                                 dispatch(handledata.getdata(res.data.data))

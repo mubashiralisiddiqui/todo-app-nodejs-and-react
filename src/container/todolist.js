@@ -22,7 +22,7 @@ class TodoList extends React.Component {
                 <div className="container panel panel-default">
                     <div className="panel-body">
                         <Form />
-                        {/* <List /> */}
+                        <List />
                         <Footer />
                     </div>
 

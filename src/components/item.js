@@ -9,7 +9,7 @@ class Item extends Component {
         this.state = {
             editable: false,
             value: this.props.value.value,
-            checked: false
+            checked: this.props.value.checked
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
