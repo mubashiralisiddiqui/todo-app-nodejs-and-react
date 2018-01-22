@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import axios from 'axios';
-import { handleDelete, checkItem, updateItem, getdata, } from '../store/middleware/datamiddleware';
+import { handleDelete, checkItem, updateItem, getdata } from '../store/middleware/datamiddleware';
 
 import { connect } from 'react-redux';
 class Item extends Component {
@@ -21,10 +21,8 @@ class Item extends Component {
     }
     handleChecked(state) {
         this.setState({
-            checked: !this.state.checked,
+            checked: !this.state.checked
         })
-
-        console.log("checking", this.state.checked)
         this.props.cheked(this.props.value._id, state)
     }
     handleSubmit(event) {

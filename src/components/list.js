@@ -6,7 +6,8 @@ class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editable: false
+            editable: false,
+            isloading: false
         }
 
     }
@@ -14,23 +15,41 @@ class List extends React.Component {
 
         this.props.getdataa()
     }
+    // componentWillReceiveProps() {
+    //     this.setState({
+    //         isloading:true
+    //     })
+    //     setTimeout(() => {
+    //         this.setState({
+    //             isloading: false
+    //         })
+    //     }, 500);
+    // }
+    getstateofloading(state) {
+        console.log("sting state",state)
+    }
 
     render() {
         console.log("state of response", this.props.resdata)
         return (
-            <ul className="list-group items_list">
-                {this.props.resdata ? this.props.resdata.map((a, i) => {
-                    return (
-                        <div key={i}>
-                            <Item value={a} index={i}/>
-                        </div>
-                    )
-                }) : <div className="alert alert-danger searchNoResult">
-                        Type the text and press <b>"Enter"</b> to add item.
-                </div>
+            <div>
+                {this.state.isloading ? <h1 style={{ textAlign: 'center', color: 'pink' }}>loading ...</h1> :
+                    <ul className="list-group items_list">
+                        {this.props.resdata ? this.props.resdata.map((a, i) => {
+                            return (
+                                <div key={i}>
+                                    <Item value={a} index={i} stateofloading={ this.getstateofloading} />
+                                </div>
+                            )
+                        }) : <div className="alert alert-danger searchNoResult">
+                                Type the text and press <b>"Enter"</b> to add item.
+            </div>
+                        }
+
+                    </ul>
                 }
-               
-            </ul>
+
+            </div>
         )
     }
 }

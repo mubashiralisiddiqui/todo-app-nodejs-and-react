@@ -2,7 +2,8 @@
 import { handledata } from '../actions/handledata';
 
 const initialState = {
-    data: []
+    data: [],
+
 }
 
 export default function (state = initialState, actions) {
@@ -15,6 +16,11 @@ export default function (state = initialState, actions) {
             return { ...state, data: actions.payload }
             break;
         case handledata.UPDATEDATA:
+            return { ...state, data: actions.payload }
+            break;
+        case handledata.ACTIVE:
+            return { ...state, data: actions.payload }
+        case handledata.COMPLETED:
             return { ...state, data: actions.payload }
         default:
             return state

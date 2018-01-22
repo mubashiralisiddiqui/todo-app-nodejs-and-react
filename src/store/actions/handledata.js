@@ -4,6 +4,8 @@ export class handledata {
     static GETDATA = "GETDATA";
     static UPDATEDATA = "UPDATEDATA";
     static ISLOADING = "ISLOADING";
+    static ACTIVE = "ACTIVE";
+    static COMPLETED = "COMPLETED";
 
 
     static submitdata = (payload) => ({
@@ -23,6 +25,16 @@ export class handledata {
         type: handledata.ISLOADING,
         payload
     })
+    static getActive = (payload) => ({
+        type: handledata.ACTIVE,
+        payload
+    })
+
+    static getcompleted = (payload) => ({
+        type: handledata.COMPLETED,
+        payload
+    })
+
 
 }
 

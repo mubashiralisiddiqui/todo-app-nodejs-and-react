@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { handledata } from '../actions/handledata'
-const rooturl = 'https://todoappwithnodeandreact.herokuapp.com/api/'
+const rooturl = 'https://todoappwithnodeandreact.herokuapp.com/api/';
+
 export const submitData = (data) => {
     console.log(data)
     return dispatch => {
@@ -15,13 +16,11 @@ export const submitData = (data) => {
                     })
                     .catch((err) => {
                         console.log("error", err)
-
                     })
             })
             .catch((err) => {
                 console.log("error", err)
             })
-
     }
 }
 export const getdata = () => {
@@ -33,7 +32,6 @@ export const getdata = () => {
             })
             .catch((err) => {
                 console.log("error", err)
-
             })
     }
 }
@@ -50,7 +48,6 @@ export const handleDelete = (id) => {
                     })
                     .catch((err) => {
                         console.log("error", err)
-
                     })
             })
             .catch((err) => {
@@ -78,7 +75,6 @@ export const checkItem = (id, data) => {
             .catch((err) => {
                 console.log('error', err)
             })
-
     }
 }
 export const updateItem = (id, data) => {
@@ -88,14 +84,14 @@ export const updateItem = (id, data) => {
             .then((res) => {
                 console.log("updated", res.data)
                 axios.get(rooturl)
-                // dispatch(handledata.load())
+                    // dispatch(handledata.load())
                     .then((res) => {
                         console.log("response of get req", res.data.data)
                         dispatch(handledata.getdata(res.data.data))
                     })
                     .catch((err) => {
                         console.log("error", err)
-        
+
                     })
             })
             .catch((err) => {
@@ -115,8 +111,8 @@ export const checkedAll = (data) => {
                     console.log('error', err)
                     axios.get(rooturl)
                         .then((res) => {
-                            console.log("response of get req", res.data.data)
-                            dispatch(handledata.getdata(res.data.data))
+                            console.log("response of get req", res.data)
+                            dispatch(handledata.getdata(res.data))
                         })
                         .catch((err) => {
                             console.log("error", err)
@@ -134,7 +130,6 @@ export const deleteChecked = (data) => {
         data.map((a, i) => {
             if (a.checked == true) {
                 axios.delete(`${rooturl}/delete/${a._id}`)
-
                     .then((res) => {
                         console.log("response of delete req", res)
                         axios.get(rooturl)
@@ -150,14 +145,30 @@ export const deleteChecked = (data) => {
                     .catch((err) => {
                         console.log("error", err)
                     })
-
             }
         })
-        // for (var i = 0; i <= data.length; i++) {
-        //    if(data[i].checked===false){
-        //   console.log('chekc')
-        //    }
-        // }
     }
 }
 
+export const active = () => {
+    return dispatch => {
+        axios.get(`${rooturl}/active`).then((res => {
+            console.log('response of active', res)
+            dispatch(handledata.getActive(res.data))
+        }))
+            .catch((err) => {
+                console.log("erroe", err)
+            })
+    }
+}
+export const completedTask = () => {
+    return dispatch => {
+        axios.get(`${rooturl}/completed`).then((res => {
+            console.log('response of active', res)
+            dispatch(handledata.getcompleted(res.data))
+        }))
+            .catch((err) => {
+                console.log("erroe", err)
+            })
+    }
+}

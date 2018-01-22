@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { checkedAll, deleteChecked } from '../store/middleware/datamiddleware';
-import {Link}from 'react-router-dom'
+import { checkedAll, deleteChecked, active, completedTask, getdata } from '../store/middleware/datamiddleware';
+import { Link } from 'react-router-dom'
 class Footer extends React.Component {
 
     checkedAll() {
@@ -12,6 +12,15 @@ class Footer extends React.Component {
         let allData = this.props.resdata
         this.props.deleteChecked(allData)
     }
+    getactive() {
+        this.props.activetask()
+    }
+    getcompleted() {
+        this.props.completedtask()
+    }
+    getAllTask() {
+        this.props.getdata()
+    }
 
     render() {
         return (
@@ -21,9 +30,12 @@ class Footer extends React.Component {
                 </div>
                 <div style={{ justifyContent: 'center', display: 'flex' }}>
                     <div className="btn-group" role="group">
-                    <div to="/" className={this.props.active==="all" ? "btn btn-primary": "btn btn-default"}>All</div>
-                    <div to="/active" className={this.props.active==="active" ? "btn btn-primary": "btn btn-default"}>Active</div>
-                    <div to="/completed" className={this.props.active==="completed" ? "btn btn-primary": "btn btn-default"}>Completed</div>
+                        <button onClick={() => { this.getAllTask() }} >All</button>
+                        {/* <Link to="/active" className={this.props.active === "active" ? "btn btn-primary" : "btn btn-default"}></Link> */
+                        }
+                        <button onClick={() => { this.getactive() }} >Active</button>
+                        {/* <Link to="/completed" className={this.props.active === "completed" ? "btn btn-primary" : "btn btn-default"}>Completed</Link> */}
+                        <button onClick={() => { this.getcompleted() }} >Completed</button>
                     </div>
 
                 </div>
@@ -45,7 +57,10 @@ class Footer extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return ({
         getalldata: (data) => { dispatch(checkedAll(data)) },
-        deleteChecked: (data) => { dispatch(deleteChecked(data)) }
+        deleteChecked: (data) => { dispatch(deleteChecked(data)) },
+        activetask: () => { dispatch(active()) },
+        completedtask: () => { dispatch(completedTask()) },
+        getdata: () => { dispatch(getdata()) }
     })
 }
 const mapStateToProps = (state) => {
