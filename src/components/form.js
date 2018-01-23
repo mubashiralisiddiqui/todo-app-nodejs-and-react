@@ -9,27 +9,33 @@ class Form extends React.Component {
         this.state = {
             value: '',
             alert: false,
-            visible: "none"
+            visible: "none",
+            textArea: ''
         }
     }
     handleTyping(event) {
         this.setState({ value: event.target.value });
     }
+    handleTextArea(event) {
+        this.setState({ textArea: event.target.value });
+    }
     handleSubmit(event) {
         event.preventDefault();
-
+        const value = this.state.value
+        const Description = this.state.textArea
         this.setState({ value: '' });
-        if (this.state.value === "") {
+        this.setState({ textArea: '' })
+        if (this.state.value === ""&&this.state.textArea==="") {
             this.setState({ alert: true, visible: 'block' })
         }
         else {
-            this.props.submit(this.state.value)
+            this.props.submit(value, Description)
         }
 
         this.props.getdataa()
     }
     render() {
-        console.log("visible", this.state.visible)
+        console.log("visible", this.state.textArea)
         return (
             <div className="panel-body">
                 <form onSubmit={(e) => this.handleSubmit(e)} className="input-group ">
@@ -37,14 +43,19 @@ class Form extends React.Component {
                         placeholder="What needs to be done? Search or add..."
                         value={this.state.value}
                         onChange={(e) => this.handleTyping(e)} />
+                    <textarea
+                        style={{ marginTop: 10, width: 300 }}
+                        class="form-control" rows="5" id="comment" placeholder="Enter Description Here..."
+                        onChange={(e) => this.handleTextArea(e)}
+                    />
                     <span className="input-group-btn">
                         <button className="btn btn-primary" type="submit">
                             <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                     </span>
                 </form>
-                <div className='alert alert-danger' style={{ display: this.state.visible,justifyContent:'center' }} >
-                    <p style={{textAlign:'center'}}>please fill form first</p>
+                <div className='alert alert-danger' style={{ display: this.state.visible, justifyContent: 'center' }} >
+                    <p style={{ textAlign: 'center' }}>please fill form first</p>
                     <button className='btn btn-danger' onClick={() => { this.setState({ alert: false, visible: 'none' }) }} >ok</button>
                 </div>
             </div>
@@ -53,7 +64,7 @@ class Form extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return ({
-        submit: (data) => { dispatch(submitData(data)) },
+        submit: (data, Description) => { dispatch(submitData(data, Description)) },
         getdataa: () => { dispatch(getdata()) }
     })
 }

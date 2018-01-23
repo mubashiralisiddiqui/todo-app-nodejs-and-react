@@ -2,16 +2,16 @@ import axios from 'axios';
 import { handledata } from '../actions/handledata'
 const rooturl = 'https://todoappwithnodeandreact.herokuapp.com/api/';
 
-export const submitData = (data) => {
-    console.log(data)
+export const submitData = (data, description) => {
+    console.log("data,description", data, description)
     return dispatch => {
         console.log(data)
-        axios.post(`${rooturl}/add`, { value: data })
+        axios.post(`${rooturl}/add`, { value: data, description: description })
             .then((res) => {
                 console.log("response", res)
                 axios.get(rooturl)
                     .then((res) => {
-                        console.log("response of get req", res.data.data)
+                        // console.log("response of get req", res.data.data, res.data.description)
                         dispatch(handledata.getdata(res.data.data))
                     })
                     .catch((err) => {

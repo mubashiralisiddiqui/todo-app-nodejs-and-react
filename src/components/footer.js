@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { checkedAll, deleteChecked, active, completedTask, getdata } from '../store/middleware/datamiddleware';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Calender from './calender'
+import Calendar from 'react-big-calendar/lib/Calendar';
 class Footer extends React.Component {
 
     checkedAll() {
@@ -49,7 +51,6 @@ class Footer extends React.Component {
                         </button>
                     </div>
                 </div>
-
             </div>
         )
     }

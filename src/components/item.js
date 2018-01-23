@@ -48,31 +48,33 @@ class Item extends Component {
     render() {
         console.log("is cheked", this.state.checked)
         return (
-            <li onDoubleClick={() => this.setState({ editable: !this.state.editable })}
-                style={this.props.value.checked ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}
-                className={this.props.value.checked ? "list-group-item checked" : "list-group-item"}
-                index={this.props.index}
-            >
-                <button className="btn check_btn" type="button"
-                    onClick={() => this.handleChecked(this.state.checked)}>
-                    <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                </button>
-                {this.state.editable ? <form onSubmit={(e) => { this.handleSubmit(e) }}>
-                    <input className="editableItem form-control"
-                        type="text" autoFocus
-                        value={this.state.value}
-                        onChange={this.handleTyping}
-                        placeholder={this.props.value} /> </form> :
-                    <span>{this.props.value.value}</span>}
+            <div>
+                <li onDoubleClick={() => this.setState({ editable: !this.state.editable })}
+                    style={this.props.value.checked ? { textDecoration: 'line-through' } : { textDecoration: 'none' }}
+                    className={this.props.value.checked ? "list-group-item checked" : "list-group-item"}
+                    index={this.props.index}
+                >
+                    <button className="btn check_btn" type="button"
+                        onClick={() => this.handleChecked(this.state.checked)}>
+                        <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
+                    {this.state.editable ? <form onSubmit={(e) => { this.handleSubmit(e) }}>
+                        <input className="editableItem form-control"
+                            type="text" autoFocus
+                            value={this.state.value}
+                            onChange={this.handleTyping}
+                            placeholder={this.props.value} /> </form> :
+                        <span>{this.props.value.value}</span>}
 
-                {this.state.editable ? "" :
-                    <button className="btn delete_btn view " type="button"
-                        style={{ float: 'right' }}
-                        onClick={() => this.props.delete(this.props.value._id)}>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>}
-
-            </li>
+                    {this.state.editable ? "" :
+                        <button className="btn delete_btn view " type="button"
+                            style={{ float: 'right' }}
+                            onClick={() => this.props.delete(this.props.value._id)}>
+                            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>}
+                </li>
+                <div>{this.props.value.description}</div>
+            </div>
         )
     }
 }
